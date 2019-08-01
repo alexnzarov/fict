@@ -1,10 +1,10 @@
 export default interface IConfig {
-	BOT_TOKEN: string;
-	BOT_LOG_GROUP: number;
-	BOT_FORWARD_GROUPS: number[];
+  BOT_TOKEN: string;
+  BOT_LOG_GROUP: number;
+  BOT_FORWARD_GROUPS: number[];
 
-	MONGODB_URI: string;
+  MONGODB_URI: string;
 
-	HOST: string;
-	PORT: number;
+  HOST: string;
+  PORT: number;
 };
