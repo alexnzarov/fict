@@ -1,0 +1,28 @@
+{
+  "name": "fict",
+  "version": "0.1.0",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "core-js": "^2.6.5",
+    "jquery": "^3.4.1",
+    "style-loader": "^0.23.1",
+    "vue": "^2.6.10",
+    "vue-headful": "^2.0.1",
+    "vue-router": "^3.0.3",
+    "vuex": "^3.0.1",
+    "vuex-persistedstate": "^2.5.4"
+  },
+  "devDependencies": {
+    "webpack": "*",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.4",
+    "@vue/cli-plugin-babel": "^3.7.0",
+    "@vue/cli-service": "^3.7.0",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.1.0",
+    "vue-svg-inline-loader": "^1.2.15",
+    "vue-template-compiler": "^2.5.21"
+  }
+}
