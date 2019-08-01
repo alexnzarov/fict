@@ -3,6 +3,16 @@ import AppConfig from '../config';
 import escape from 'html-escape';
 import logger from '../core/Logger';
 
+const handlers = {
+  sticker: 'sendSticker',
+  photo: 'sendPhoto',
+  document: 'sendDocument',
+  voice: 'sendVoice',
+  audio: 'sendAudio',
+  video: 'sendVideo',
+  text: 'sendMessage'
+};
+
 bot.on('message', async (ctx) => {
   if (ctx.chat.type !== 'private') { 
     const reply = ctx.message.reply_to_message;
@@ -16,14 +26,19 @@ bot.on('message', async (ctx) => {
         const chatId = reply.forward_from.id;
         const msg = ctx.message;
 
-        // TODO: make it prettier
-        if (msg.sticker) { await bot.telegram.sendSticker(chatId, msg.sticker.file_id); }
-        else if (msg.photo) { await bot.telegram.sendPhoto(chatId, msg.photo[0].file_id); }
-        else if (msg.document) { await bot.telegram.sendDocument(chatId, msg.document.file_id); }
-        else if (msg.voice) { await bot.telegram.sendVoice(chatId, msg.voice.file_id); }
-        else if (msg.audio) { await bot.telegram.sendAudio(chatId, msg.audio.file_id); }
-        else if (msg.video) { await bot.telegram.sendVideo(chatId, msg.video.file_id); }
-        else { await bot.telegram.sendMessage(reply.forward_from.id, msg.text); }
+        const types = Object.keys(handlers);
+        for (let i = 0; i < types.length; i++) {
+          const t = types[i];
+          
+          if (!msg[t]) { continue; }
+
+          const fn = bot.telegram[handlers[t]].bind(bot.telegram);
+          const response = t === 'photo' ? msg.photo[0].file_id : (t === 'text' ? msg.text : msg[t].file_id);
+
+          await fn(chatId, response);
+
+          break;
+        }
 
         const u = reply.forward_from;
         ctx.replyWithHTML(`<b>Я успешно отправил ответ этому пользователю: </b> <a href="tg://user?id=${u.id}">${escape(u.username ? `@${u.username}` : u.first_name)}</a>`);
@@ -43,6 +58,11 @@ bot.on('message', async (ctx) => {
     await forward(AppConfig.BOT_SUGGESTION_GROUP, ctx.chat.id, ctx.message.message_id);
   }
   catch (err) {
-    logger.error(`Failed to forward a message: ${err.toString()}\n`);
+    logger.error(`Failed to forward a message`, { 
+      error: err.toString(),
+      chat: ctx.chat && ctx.chat.id,
+      user: ctx.from && ctx.from.id,
+      message: ctx.message && ctx.message.text
+    });
   }
 });

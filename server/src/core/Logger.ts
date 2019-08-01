@@ -14,10 +14,17 @@ export default class Logger {
     const time = moment().format('YYYY-MM-DD HH:mm:ss:SSS');
 
     const prefix = `[${time}][${level}]:`;
-    console.log(prefix, ...args);
+    const payload = args.reduce((prev, cur) => {
+      if (typeof(cur) === 'object') {
+        try { cur = JSON.stringify(cur); }
+        catch {}
+      }
 
-    const formatted = args.join(' ');
-    Logger.logBuffer.push(`${prefix} ${formatted}`);
+      return prev + ` ${cur.toString()}`;
+    });
+
+    console.log(prefix, payload);
+    Logger.logBuffer.push(`${prefix} ${payload}`);
   }
 
   public static info(...args: any[]) { Logger.log(LogLevel.INFO, ...args); }
