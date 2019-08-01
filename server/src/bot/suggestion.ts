@@ -1,6 +1,7 @@
 import bot from './';
 import AppConfig from '../config';
 import escape from 'html-escape';
+import logger from '../core/Logger';
 
 bot.on('message', async (ctx) => {
   if (ctx.chat.type !== 'private') { 
@@ -35,8 +36,13 @@ bot.on('message', async (ctx) => {
     return;
   }
 
-  const u = ctx.from;
-  const forward = (bot as any).telegram.forwardMessage.bind(bot.telegram);
-  await bot.telegram.sendMessage(AppConfig.BOT_SUGGESTION_GROUP, `<b>Новое сообщение от</b> <a href="tg://user?id=${u.id}">${escape(u.username ? `@${u.username}` : u.first_name)}</a>:`, { parse_mode: 'HTML' });
-  forward(AppConfig.BOT_SUGGESTION_GROUP, ctx.chat.id, ctx.message.message_id);
+  try {
+    const u = ctx.from;
+    const forward = (bot as any).telegram.forwardMessage.bind(bot.telegram);
+    await bot.telegram.sendMessage(AppConfig.BOT_SUGGESTION_GROUP, `<b>Новое сообщение от</b> <a href="tg://user?id=${u.id}">${escape(u.username ? `@${u.username}` : u.first_name)}</a>:`, { parse_mode: 'HTML' });
+    await forward(AppConfig.BOT_SUGGESTION_GROUP, ctx.chat.id, ctx.message.message_id);
+  }
+  catch (err) {
+    logger.error(`Failed to forward a message: ${err.toString()}\n`);
+  }
 });
