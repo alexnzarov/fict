@@ -1,8 +1,8 @@
 export default interface IPost {
-	_id?: string;
+  _id?: string;
 
-	title: string;
-	content: string;
-	date: Date;
-	author: number;
+  title: string;
+  content: string;
+  date: Date;
+  author: number;
 };
