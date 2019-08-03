@@ -37,7 +37,7 @@ bot.on('message', async (ctx) => {
 
           await fn(chatId, response);
 
-          logger.info('Replied to the forward', { id: ctx.from.id, username: ctx.from.username || ctx.from.first_name, type: t, response });
+          logger.info('Replied to the forward', { id: ctx.from.id, username: ctx.from.username || ctx.from.first_name, type: t });
 
           break;
         }
@@ -47,6 +47,13 @@ bot.on('message', async (ctx) => {
       }
       catch (err) {
         ctx.reply(`У меня не получилось ответить этому пользователю:\n${err.toString()}`);
+
+        logger.error('Failed to send a reply', { 
+          error: err.toString(),
+          chat: ctx.chat.id,
+          target: reply.forward_from.id,
+          sender: ctx.from.id,
+        });
       }
     }
 
@@ -59,7 +66,7 @@ bot.on('message', async (ctx) => {
     await bot.telegram.sendMessage(AppConfig.BOT_SUGGESTION_GROUP, `<b>Новое сообщение от</b> <a href="tg://user?id=${u.id}">${escape(u.username ? `@${u.username}` : u.first_name)}</a>:`, { parse_mode: 'HTML' });
     await forward(AppConfig.BOT_SUGGESTION_GROUP, ctx.chat.id, ctx.message.message_id);
 
-    logger.info('Forwarded a message', { id: u.id, username: u.username || u.first_name, text: ctx.message.text });
+    logger.info('Forwarded a message', { id: u.id, username: u.username || u.first_name });
   }
   catch (err) {
     logger.error(`Failed to forward a message`, { 
