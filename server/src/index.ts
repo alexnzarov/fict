@@ -1,12 +1,10 @@
-import express from 'express';
+import Database from './core/db';
+import AppConfig from './config';
+import logger from './core/Logger';
 
-const app = express();
+Database.connect(AppConfig.MONGODB_URI)
+	.then((db) => logger.info('Connected to the database:', db.databaseName))
+	.catch((err) => logger.error('Failed to connected to the database:', err.toString()));
 
-app.get('/', (req, res) => {
-	res.send('Hello World!');
-});
-
-const port = process.env.PORT || 8000;
-app.listen(port, () => {
-	console.log('Server is listening on:', port);
-});
+import './app';
+import './bot';
