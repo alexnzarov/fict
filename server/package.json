@@ -19,6 +19,7 @@
     "moment": "^2.24.0",
     "mongodb": "^3.3.0-beta2",
     "telegraf": "^3.32.0",
+    "telegraf-session-mongodb": "^1.1.2",
     "typescript": "^3.5.3"
   }
 }

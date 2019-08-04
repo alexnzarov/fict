@@ -1,5 +1,5 @@
 import { ContextMessageUpdate } from 'telegraf';
-import bot from './';
+import bot from '..';
 
 const message = [
   'Я ничего не умею, а ты?',

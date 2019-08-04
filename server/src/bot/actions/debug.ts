@@ -1,4 +1,4 @@
-import bot from './';
+import bot from '..';
 import escape from 'html-escape';
 
 bot.command('/debug', (ctx) => {

@@ -1,6 +1,6 @@
-import bot from './';
+import bot from '..';
 import sendAuthMessage from './auth';
-import AppConfig from '../config';
+import AppConfig from '../../config';
 
 const helloMessage = [
   '<b>Привет, я дружелюбный FICT robot.</b>\n',
