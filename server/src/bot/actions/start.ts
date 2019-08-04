@@ -12,10 +12,17 @@ const helloMessage = [
   'Официальный канал: https://t.me/fict_time',
 ].join('\n');
 
+const handlers = {
+  auth: sendAuthMessage,
+  join: () => {},
+};
+
 bot.start((ctx) => {
   const tokens = ctx.message.text.split(' ');
-  if (tokens[1] === 'auth') {
-    return sendAuthMessage(ctx);
+  const action = tokens[1];
+
+  if (action && handlers[action]) {
+    return handlers[action](ctx);
   }
 
   ctx.replyWithHTML(helloMessage);
