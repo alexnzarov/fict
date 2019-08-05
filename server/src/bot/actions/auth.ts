@@ -1,5 +1,5 @@
 import { ContextMessageUpdate } from 'telegraf';
-import AppConfig from '../config';
+import AppConfig from '../../config';
 
 const message = [
   `<b>Авторизация на сайте</b> https://${AppConfig.HOST}/\n`,
