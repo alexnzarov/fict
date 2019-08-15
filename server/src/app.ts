@@ -1,11 +1,13 @@
 import express from 'express';
 import logger from './core/Logger';
 import AuthMiddleware from './middlewares/auth';
+import UserMiddleware from './middlewares/user';
 
 const app = express();
 export default app;
 
 app.use(AuthMiddleware);
+app.use(UserMiddleware);
 
 app.set('json spaces', 2);
 

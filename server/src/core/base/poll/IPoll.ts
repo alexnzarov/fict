@@ -1,3 +1,5 @@
+import IPollVote from './IPollVote';
+
 export default interface IPoll {
   _id?: string;
 
@@ -5,4 +7,6 @@ export default interface IPoll {
   description?: string;
   totalVotes: number;
   options: string[];
+
+  votes?: IPollVote[];
 };
