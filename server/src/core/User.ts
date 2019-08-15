@@ -1,4 +1,4 @@
-import IUser, { UserPermissions } from './base/IUser';
+import { IUser, UserPermissions } from './base';
 import Database from './db';
 
 export default class User implements IUser {
