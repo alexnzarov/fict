@@ -1,5 +1,7 @@
 # Сайт студсовета ФИВТ
 
+[![DeepScan grade](https://deepscan.io/api/teams/5190/projects/6964/branches/62399/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=5190&pid=6964&bid=62399) [![BCH compliance](https://bettercodehub.com/edge/badge/fict-team/fict?branch=dev)](https://bettercodehub.com/)
+
 [Mindmap](https://coggle.it/diagram/XT_ufFj7lei_mDAX/t/сайт-сс-фивт/71f28436bebd783171b8c53e053472ab8d79c99819c75270277a702c0af79b19)
 
 [Wiki](https://github.com/fict-team/fict/wiki)
