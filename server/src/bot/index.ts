@@ -1,5 +1,5 @@
 import Telegraf from 'telegraf';
-import MessageUpdate from './MessageUpdate';
+import MessageUpdate from './core/MessageUpdate';
 import AppConfig from '../config';
 import MongoSession from '../middlewares/botSessions';
 import Database from '../core/db';
@@ -12,7 +12,7 @@ bot.use(MongoSession);
 
 bot.telegram.getMe().then(u => bot.options.username = u.username);
 
-import './context';
+import './core/context';
 
 import './actions/debug';
 import './actions/start';

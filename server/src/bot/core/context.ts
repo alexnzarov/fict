@@ -1,6 +1,6 @@
-import bot from './';
+import bot from '..';
 import { ReplyKeyboardMarkup } from 'telegraf/typings/telegram-types';
-import Keyboard from './utils/Keyboard';
+import Keyboard from '../utils/Keyboard';
 import escape from 'html-escape';
 
 bot.context.getUserTag = function(user = null) {
@@ -12,7 +12,7 @@ bot.context.getUserTag = function(user = null) {
 
 bot.context.getKeyboard = async function(params = {}) {
   const kb = Keyboard(
-    [{ text: '📃 Помощь' }, { text: '🌍 Веб-сайт' }],
+    [{ text: '🌍 Веб-сайт' }],
     [{ text: '🆘 Я потерялся', request_location: true }]
   );
 
