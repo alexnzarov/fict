@@ -4,7 +4,7 @@ import bot from '..';
 import LostEntry from '../core/LostEntry';
 import { ExtraEditMessage, User, Location } from 'telegraf/typings/telegram-types';
 
-bot.command('/lost', (ctx) => ctx.replyWithHTML('Ты потерялся? Ничего, не бойся.\n\n<b>Отправь мне свою локацию через вложения или нажми на кнопку "Я потерялся", чтобы я смог тебе помочь!</b>'))
+bot.command('/lost', (ctx) => ctx.replyWithHTML('Ты потерялся или у тебя что-то случилось? Ничего, не бойся.\n\n<b>Отправь мне свою локацию через вложения или нажми на кнопку "Я потерялся", чтобы я смог тебе помочь!</b>'))
 
 const instructions = [
   '<b>Твоя локация была передана в надёжные руки!</b>\n',
