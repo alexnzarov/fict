@@ -7,6 +7,15 @@ const hashedToken = sha256().update(AppConfig.BOT_TOKEN).digest();
 export default (req: Request, res: Response, next: NextFunction) => {
   const [type, encodedData] = (req.headers.authorization || '').split(' ');
 
+  /*
+    encodedData is base64 encoded JSON data that was sent from the Telegram.
+    It should be verified by comparing data.hash value with our own computed hash.
+
+    How to compute hash:
+      1. Exclude hash field from the data
+      2. Create a string in format "$field=$value", separated by \n (these lines must be sorted alphabetically)
+      3. hmac_sha256 this string with a sha-256 hashed bot token
+  */
   if (type === 'Basic' && encodedData) {
     try {
       const data = JSON.parse(Buffer.from(encodedData, 'base64').toString());
@@ -18,8 +27,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
         req.authorization = data;
       } 
       else {
-        res.status(403).send();
-        return;
+        throw new Error('Signature is not valid');
       }
     }
     catch (err) {

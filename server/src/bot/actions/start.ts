@@ -1,6 +1,7 @@
 import bot from '..';
 import sendAuthMessage from './auth';
 import AppConfig from '../../config';
+import Keyboard from '../utils/Keyboard';
 
 const helloMessage = [
   '<b>Привет, я дружелюбный FICT robot.</b>\n',
@@ -12,11 +13,18 @@ const helloMessage = [
   'Официальный канал: https://t.me/fict_time',
 ].join('\n');
 
-bot.start((ctx) => {
+const handlers = {
+  auth: sendAuthMessage,
+  join: () => {},
+};
+
+bot.start(async (ctx) => {
   const tokens = ctx.message.text.split(' ');
-  if (tokens[1] === 'auth') {
-    return sendAuthMessage(ctx);
+  const action = tokens[1];
+
+  if (action && handlers[action]) {
+    return handlers[action](ctx);
   }
 
-  ctx.replyWithHTML(helloMessage);
+  ctx.replyWithHTML(helloMessage, await ctx.getKeyboard());
 });

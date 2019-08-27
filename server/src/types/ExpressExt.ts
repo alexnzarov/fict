@@ -1,15 +1,11 @@
-interface IAuthorization {
-  id: string;
-  first_name: string;
-  last_name?: string;
-  username?: string;
-  photo_url?: string;
-  auth_date: string;
-  hash: string;
-};
+import User from "../core/User";
+import IAuthorization from '../core/base/IAuthorization';
 
-declare namespace Express {
+declare global {
+  namespace Express {
     export interface Request {
       authorization?: IAuthorization;
+      user?: User;
     }
+  }
 }

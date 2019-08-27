@@ -18,18 +18,26 @@ bot.on('message', async (ctx) => {
   if (ctx.chat.type !== 'private') { 
     const reply = ctx.message.reply_to_message;
 
+    /*
+      BOT_SUGGESTION_GROUP is the group to which bot forwards suggestions.
+      Anyone in that group can reply to the forwarded message and bot will send their reply back to the user.
+
+      Here we check if message is a reply. 
+      Bot will ignore replies to its messages.
+    */
     if (ctx.chat.id === AppConfig.BOT_SUGGESTION_GROUP && reply && reply.from.username === bot.options.username) {
       if (!reply.forward_from || reply.forward_from.username === bot.options.username) {
         return;
       }
 
       try {
-        const chatId = reply.forward_from.id;
+        const chatId = reply.forward_from.id; // to whom to send the reply
         const msg = ctx.message;
 
-        const u = reply.forward_from;
+        const u = reply.forward_from; // author of the original forwarded message
         const name = escape(u.username ? `@${u.username}` : u.first_name);
         const types = Object.keys(handlers);
+
         for (let i = 0; i < types.length; i++) {
           const t = types[i];
           
@@ -38,6 +46,10 @@ bot.on('message', async (ctx) => {
           const fn = bot.telegram[handlers[t]].bind(bot.telegram);
           const response = t === 'photo' ? msg.photo[0].file_id : (t === 'text' ? msg.text : msg[t].file_id);
 
+          /*
+            Reply "/ban" will restrict user from forwarding their messages to the suggestions group.
+            Reply "/unban" will grant this ability back to them.
+          */
           if (t === 'text') {
             if (response === '/ban') {
               const banMsg = [
@@ -94,12 +106,14 @@ bot.on('message', async (ctx) => {
   }
 
   try {
+    // Messages from banned users are not forwarded to the suggestions group.
     if (ctx.session.banned) {
       return;
     }
 
     const u = ctx.from;
     const forward = (bot as any).telegram.forwardMessage.bind(bot.telegram);
+    
     await bot.telegram.sendMessage(AppConfig.BOT_SUGGESTION_GROUP, `<b>Новое сообщение от</b> <a href="tg://user?id=${u.id}">${escape(u.username ? `@${u.username}` : u.first_name)}</a>:`, { parse_mode: 'HTML' });
     await forward(AppConfig.BOT_SUGGESTION_GROUP, ctx.chat.id, ctx.message.message_id);
 
