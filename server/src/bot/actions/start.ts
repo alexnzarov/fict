@@ -1,6 +1,7 @@
 import bot from '..';
 import sendAuthMessage from './auth';
 import AppConfig from '../../config';
+import Keyboard from '../utils/Keyboard';
 
 const helloMessage = [
   '<b>Привет, я дружелюбный FICT robot.</b>\n',
@@ -17,7 +18,7 @@ const handlers = {
   join: () => {},
 };
 
-bot.start((ctx) => {
+bot.start(async (ctx) => {
   const tokens = ctx.message.text.split(' ');
   const action = tokens[1];
 
@@ -25,5 +26,5 @@ bot.start((ctx) => {
     return handlers[action](ctx);
   }
 
-  ctx.replyWithHTML(helloMessage);
+  ctx.replyWithHTML(helloMessage, await ctx.getKeyboard());
 });

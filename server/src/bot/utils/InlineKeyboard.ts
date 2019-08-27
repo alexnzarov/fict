@@ -3,7 +3,7 @@ import { InlineKeyboardButton, ExtraReplyMessage } from 'telegraf/typings/telegr
 export default (...buttons: InlineKeyboardButton[][]): ExtraReplyMessage => {
   return {
     reply_markup: {
-      inline_keyboard: [...buttons],
+      inline_keyboard: buttons,
     },
   };
 };

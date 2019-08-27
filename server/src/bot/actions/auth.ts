@@ -1,4 +1,4 @@
-import MessageUpdate from '../MessageUpdate';
+import MessageUpdate from '../core/MessageUpdate';
 import AppConfig from '../../config';
 import InlineKeyboard from '../utils/InlineKeyboard';
 
