@@ -11,7 +11,7 @@ modKeyboard.parse_mode = 'HTML';
 bot.command('/lost', (ctx) => {
   if (ctx.chat.type != 'private') { return; }
   
-  ctx.replyWithHTML('Ты потерялся или у тебя что-то случилось? Ничего, не бойся.\n\n<b>Отправь мне свою локацию через вложения или нажми на кнопку "Я потерялся", чтобы я смог тебе помочь!</b>')
+  ctx.replyWithHTML('Ты потерялся или у тебя что-то случилось? Ничего, не бойся.\n\n<b>Отправь мне свою локацию через вложения или нажми на кнопку "Мне нужна помощь", чтобы я смог тебе помочь!</b>')
 });
 
 const getMessageContent = (user: User, location: Location | string, phone?: string) => {
