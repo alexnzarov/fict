@@ -12,7 +12,7 @@ bot.context.getUserTag = function(user = null) {
 
 bot.context.getKeyboard = async function(params = {}) {
   const kb = Keyboard(
-    [{ text: '🌍 Веб-сайт' }],
+    //[{ text: '🌍 Веб-сайт' }],
     [{ text: '🆘 Я потерялся', request_location: true }]
   );
 
