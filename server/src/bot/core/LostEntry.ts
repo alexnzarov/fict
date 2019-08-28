@@ -2,6 +2,7 @@ export interface ILostEntry {
   id: number;
   latitude: number;
   longitude: number;
+  phone?: string;
   messageId: number;
   modMessageId: number;
   peopleOnCase: Array<{ id: number, name: string }>;
@@ -13,6 +14,7 @@ export default class LostEntry implements ILostEntry {
   public id: number;
   public latitude: number;
   public longitude: number;
+  public phone?: string;
   public messageId: number;
   public modMessageId: number;
   public peopleOnCase: Array<{ id: number, name: string }>;

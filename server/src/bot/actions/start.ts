@@ -1,4 +1,4 @@
-import bot from '..';
+import bot, { stage } from '..';
 import sendAuthMessage from './auth';
 import AppConfig from '../../config';
 import Keyboard from '../utils/Keyboard';
@@ -26,5 +26,6 @@ bot.start(async (ctx) => {
     return handlers[action](ctx);
   }
 
+  stage.leave();
   ctx.replyWithHTML(helloMessage, await ctx.getKeyboard());
 });
