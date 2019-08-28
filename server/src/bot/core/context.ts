@@ -13,7 +13,7 @@ bot.context.getUserTag = function(user = null) {
 bot.context.getKeyboard = async function(params = {}) {
   const kb = Keyboard(
     //[{ text: '🌍 Веб-сайт' }],
-    [{ text: '🆘 Я потерялся', request_location: true }]
+    [{ text: '🆘 Мне нужна помощь', request_location: true }]
   );
 
   (kb.reply_markup as ReplyKeyboardMarkup).resize_keyboard = true;
