@@ -4,6 +4,7 @@ export default (...buttons: KeyboardButton[][]): ExtraReplyMessage => {
   return {
     reply_markup: {
       keyboard: buttons,
+      resize_keyboard: true,
     },
   };
 };
