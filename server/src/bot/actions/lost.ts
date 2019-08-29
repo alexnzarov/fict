@@ -58,7 +58,7 @@ bot.on('callback_query', async (ctx) => {
     const onCase = entry.peopleOnCase;
     const resolvedMsg = [
       '<b>Проблема решена</b>\n',
-      `${ctx.getUserTag(query.from)} сообщил мне, что у него всё уладилось.\n`,
+      `${ctx.getUserTag(query.from)} сообщил(а) мне, что всё уладилось.\n`,
       (onCase.length === 0 ? '' : `<b>Ему помогали: </b>` + onCase.map(p => p.name).join(', '))
     ].join('\n');
     await bot.telegram.editMessageText(AppConfig.BOT_SUGGESTION_GROUP, entry.modMessageId, null, resolvedMsg, { parse_mode: 'HTML' });
