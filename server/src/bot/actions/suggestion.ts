@@ -114,7 +114,10 @@ bot.on('message', async (ctx) => {
     const u = ctx.from;
     const forward = (bot as any).telegram.forwardMessage.bind(bot.telegram);
     
-    await bot.telegram.sendMessage(AppConfig.BOT_SUGGESTION_GROUP, `<b>Новое сообщение от</b> <a href="tg://user?id=${u.id}">${escape(u.username ? `@${u.username}` : u.first_name)}</a>:`, { parse_mode: 'HTML' });
+    if (ctx.message.sticker) {
+      await bot.telegram.sendMessage(AppConfig.BOT_SUGGESTION_GROUP, `<b>Новое сообщение от</b> <a href="tg://user?id=${u.id}">${escape(u.username ? `@${u.username}` : u.first_name)}</a>:`, { parse_mode: 'HTML' });
+    }
+    
     await forward(AppConfig.BOT_SUGGESTION_GROUP, ctx.chat.id, ctx.message.message_id);
 
     logger.info('Bot forwarded a message', { id: u.id, username: u.username || u.first_name });
