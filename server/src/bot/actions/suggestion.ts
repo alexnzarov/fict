@@ -107,7 +107,7 @@ bot.on('message', async (ctx) => {
 
   try {
     // Messages from banned users are not forwarded to the suggestions group.
-    if (ctx.session.banned || ctx.message.chat.id != ctx.chat.id) {
+    if (ctx.session.banned || ctx.message.chat.id != ctx.chat.id || ctx.message.forward_from) {
       return;
     }
 
